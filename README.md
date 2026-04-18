@@ -231,4 +231,4 @@ Instead, this repository includes short GIF previews for README presentation:
 
 ## Acknowledgement
 
-This project was developed as part of a Final Year Project at the National University of Singapore.
+This project was developed as part of a Final Year Project at the National University of Singapore. The work also benefited directly from the open-source robotics community, especially the authors and maintainers of `LIO-SAM`, `FAST-LIO`, `Point-LIO`, and `FASTER-LIO`, together with the broader ROS navigation ecosystem that made this benchmark possible.
