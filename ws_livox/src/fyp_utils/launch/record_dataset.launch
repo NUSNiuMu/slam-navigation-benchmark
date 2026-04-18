@@ -1,0 +1,44 @@
+<launch>
+  <!-- Conservative defaults for data collection: smooth enough to avoid
+       abrupt launches/braking, but still responsive for manual driving. -->
+  <arg name="accel_lim_v" default="0.12"/>
+  <arg name="accel_lim_w" default="0.30"/>
+  <arg name="decel_lim_v" default="0.18"/>
+  <arg name="decel_lim_w" default="0.45"/>
+  <arg name="smoother_hz" default="60.0"/>
+  <arg name="cmd_timeout" default="0.25"/>
+  <arg name="hard_stop_on_timeout" default="false"/>
+
+  <arg name="base_frame" default="base_link"/>
+  <arg name="lidar_frame" default="livox_frame"/>
+  <arg name="tf_x" default="0.0"/>
+  <arg name="tf_y" default="0.0"/>
+  <arg name="tf_z" default="0.2"/>
+  <arg name="tf_roll" default="0.0"/>
+  <arg name="tf_pitch" default="0.0"/>
+  <arg name="tf_yaw" default="0.0"/>
+
+  <arg name="bag_prefix" default="nav_eval_dataset"/>
+  <arg name="bag_dir" default="/home/bingda/PointCloudBag"/>
+  <arg name="split_size_mb" default="2048"/>
+
+  <node pkg="fyp_utils" type="cmd_vel_smoother.py" name="cmd_vel_smoother" output="screen">
+    <param name="accel_lim_v" value="$(arg accel_lim_v)"/>
+    <param name="accel_lim_w" value="$(arg accel_lim_w)"/>
+    <param name="decel_lim_v" value="$(arg decel_lim_v)"/>
+    <param name="decel_lim_w" value="$(arg decel_lim_w)"/>
+    <param name="hz" value="$(arg smoother_hz)"/>
+    <param name="cmd_timeout" value="$(arg cmd_timeout)"/>
+    <param name="hard_stop_on_timeout" value="$(arg hard_stop_on_timeout)"/>
+  </node>
+
+  <node pkg="tf2_ros" type="static_transform_publisher" name="base_link_to_livox"
+        args="$(arg tf_x) $(arg tf_y) $(arg tf_z) $(arg tf_roll) $(arg tf_pitch) $(arg tf_yaw) $(arg base_frame) $(arg lidar_frame)"/>
+
+  <!-- Bridge chassis odometry to /odom for unified recording/evaluation -->
+  <node pkg="topic_tools" type="relay" name="raw_odom_to_odom"
+        args="/raw_odom /odom" output="screen"/>
+
+  <node pkg="rosbag" type="record" name="rosbag_record_eval" output="screen"
+        args="-o $(arg bag_dir)/$(arg bag_prefix) --split --size=$(arg split_size_mb) /livox/lidar /livox/imu /odom /tf /tf_static"/>
+</launch>

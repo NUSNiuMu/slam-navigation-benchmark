@@ -1,0 +1,384 @@
+===== SLIDE 1 =====
+MEDIA: -
+Report on Last Week’s Work
+Niu Mu
+A0294372X
+
+===== SLIDE 2 =====
+MEDIA: image5.png
+Content
+Literature Review
+Open-source code reproduction
+Plans for Next Week
+2
+
+===== SLIDE 3 =====
+MEDIA: image5.png
+Literature Review
+3
+Algorithm
+Sensors
+Core Methodology
+Highlights / Strengths
+LOAM
+LiDAR
+Feature-based LiDAR odometry + mapping separation
+Classic, robust without IMU
+LeGO
+-LOAM
+LiDAR
+Ground-optimized, two-stage optimization
+Lightweight, embedded-friendly
+LIO-SAM
+LiDAR + IMU (+ GPS)
+Factor graph-based smoothing and mapping
+High accuracy, supports loop closure
+FAST-LIO
+LiDAR + IMU
+iEKF, parallel k-d tree
+Very fast, robust
+FAST-LIO2
+LiDAR + IMU
+Raw point cloud + ikd-Tree
+100 Hz mapping, no feature extraction
+FAST-LIVO
+LiDAR + IMU + Camera
+Sparse direct visual + LIO fusion
+Photometric matching, multi-sensor
+FAST-LIVO2
+LiDAR + IMU + Camera
+ESIKF + unified voxel map
+Exposure estimation, ray-casting
+R3LIVE
+LiDAR + IMU + Camera
+LIO + VIO fusion, RGB map
+Textured colored maps
+R³LIVE++
+LiDAR + IMU + Camera
+R3LIVE + radiometric reconstruction
+Photometric calibration
+
+===== SLIDE 4 =====
+MEDIA: media1.webm, media1.webm, image6.png, image5.png
+Open-source Code
+R
+eproduction
+LeGO
+-LOAM
+4
+LiDAR
+Ground-optimized, two-stage
+optimization
+Lightweight, embedded-friendly
+
+===== SLIDE 5 =====
+MEDIA: media2.webm, media2.webm, image7.png, image5.png
+Open-source Code
+R
+eproduction
+LIO-SAM
+5
+LiDAR + IMU
+Factor graph-based smoothing
+and mapping
+High accuracy, support loop closure
+
+===== SLIDE 6 =====
+MEDIA: media3.webm, media3.webm, image8.png, image5.png
+Open-source Code
+R
+eproduction
+FAST-LIVO
+6
+LiDAR + IMU + Camera
+Sparse direct visual + LIO fusion
+Photometric matching, multi-sensor
+
+===== SLIDE 7 =====
+MEDIA: media4.webm, media4.webm, image9.png, image5.png
+Open-source Code
+R
+eproduction
+FAST-LIVO2
+7
+LiDAR + IMU + Camera
+ESIKF + unified voxel map
+Exposure estimation, ray-casting
+
+===== SLIDE 8 =====
+MEDIA: image5.png
+Plans for Next Week
+8
+Reproduce the remaining open-source projects
+Locate the URDF file of the lab’s mobile robot
+Run the reproduction in Gazebo simulation
+
+===== SLIDE 9 =====
+MEDIA: image10.jpeg
+References
+Xu, W., et al. "FAST-LIO: A Fast, Robust LiDAR-Inertial Odometry Package by Tightly-Coupled LiDAR-IMU Fusion." IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS), 2021.
+Xu, W., et al. "FAST-LIO2: Fast Direct LiDAR-Inertial Odometry." IEEE Transactions on Robotics, 2022.
+Xu, W., et al. "FAST-LIVO: Fast LiDAR-Visual-Inertial Odometry for Ground Robots." IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS), 2022.
+Xu, W., et al. "FAST-LIVO2: Fast LiDAR-Visual-Inertial Odometry with High Accuracy and Robustness." IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS), 2023.
+Lin, J., et al. "R3LIVE: A Robust, Real-time, RGB-colored, LiDAR-Inertial-Visual tightly-coupled state Estimator." IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS), 2021.
+Zhang, J., et al. "LOAM: Lidar Odometry and Mapping in Real-time." Robotics: Science and Systems, 2014.
+Shan, T., et al. "
+LeGO
+-LOAM: Lightweight and Ground-Optimized Lidar Odometry and Mapping on Variable Terrain." IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS), 2018.
+Shan, T., et al. "LIO-SAM: Tightly-coupled Lidar Inertial Odometry via Smoothing and Mapping." IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS), 2020.
+9
+
+===== SLIDE 10 =====
+MEDIA: -
+Report on Last Week’s Work
+Niu Mu
+A0294372X
+
+===== SLIDE 11 =====
+MEDIA: media5.webm, media5.webm, image11.png, image5.png
+Challenges & Solutions
+11
+TF not published correctly
+Duplicate or conflicting static
+transforms
+Gazebo and LIO-SAM time sources
+not synchronized
+
+===== SLIDE 12 =====
+MEDIA: image5.png
+Plans for Next Week
+12
+LiDAR Adaptation
+Current: VLP-16
+Target: low-cost LiDAR
+Real-world Mapping
+Run LIO-SAM on lab robot
+Calibrate IMU-LiDAR
+extrinsics
+Algorithm Optimization
+Ground Segmentation for feature extraction
+Further point cloud feature improvements
+
+===== SLIDE 13 =====
+MEDIA: -
+Report on Last Week’s Work
+Niu Mu
+A0294372X
+
+===== SLIDE 14 =====
+MEDIA: image5.png
+Content
+Current Progress
+Challenges & Solutions
+Plans for Next Week
+14
+
+===== SLIDE 15 =====
+MEDIA: media6.webm, media6.webm, image12.png, image5.png
+Current Progress
+15
+PointCloud
+with Lio-Sam
+
+===== SLIDE 16 =====
+MEDIA: media7.webm, media7.webm, image13.png, image5.png
+Current Progress
+16
+PointCloud
+with Lio-Sam
+
+===== SLIDE 17 =====
+MEDIA: media8.webm, media8.webm, image14.png, image5.png
+Current Progress
+17
+PointCloud
+with Lio-Sam
+
+===== SLIDE 18 =====
+MEDIA: image5.png
+Challenges & Solutions
+18
+Issue
+LIO-SAM Requirement
+Solution
+IMU data is 6-axis
+9-axis IMU
+Compute and supplement missing axes (acceleration, angular velocity, magnetometer)
+Point cloud message type is message
+PointCloud2
+Convert or wrap message to PointCloud2
+Point cloud lacks ring information
+Ring info required for scan matching
+Calculate ring information and attach to point cloud
+
+===== SLIDE 19 =====
+MEDIA: image5.png
+Plans for Next Week
+19
+Experiment with Fast-LIO and integrate loop closure detection into the algorithm.
+Try using LVI-SAM for LiDAR-Inertial SLAM and evaluate its performance on the current dataset.
+
+===== SLIDE 20 =====
+MEDIA: -
+Report on Last Week’s Work
+Niu Mu
+A0294372X
+
+===== SLIDE 21 =====
+MEDIA: image5.png
+Content
+Current Progress
+Challenges & Solutions
+Plans for Next Week
+21
+
+===== SLIDE 22 =====
+MEDIA: image5.png, image16.jpeg, image15.jpeg
+Current Progress
+22
+LIO-SAM-MID360
+
+===== SLIDE 23 =====
+MEDIA: image5.png, image20.jpeg, image19.jpeg, image18.jpeg, image17.jpeg
+Current Progress
+23
+MID360 provide
+LIOSAM
+
+===== SLIDE 24 =====
+MEDIA: image5.png, image22.jpeg, image21.jpeg
+Current Progress
+24
+Raspberry Pi + TurtleBot3
+Keyboard
+Mouse
+HDMI
+2D Lidar
+
+===== SLIDE 25 =====
+MEDIA: image5.png, image25.png, image24.jpeg, image23.png
+Current Progress
+25
+Raspberry Pi + TurtleBot3
+Very low RAM
+Stuck and shut down
+Using 4 parallel jobs during compilation
+
+===== SLIDE 26 =====
+MEDIA: image5.png, image26.png
+Current Progress
+26
+Raspberry Pi + TurtleBot3
+A SWAP expansion space needs to be added. Essentially, when the system memory is insufficient, the SWAP partition on the hard drive is used as virtual memory.
+Since the microSD card is 32GB in size, I have allocated 4GB for the SWAP space.
+Using catkin_make -j1
+The compilation was successful but it took nearly 20 minutes.
+
+===== SLIDE 27 =====
+MEDIA: media9.mp4, media9.mp4, image27.png, image5.png
+Current Progress
+27
+Raspberry Pi + TurtleBot3
+Implement keyboard control for the chassis movement
+By connecting my computer to the Raspberry Pi via SSH, I can control the robot remotely using the keyboard.
+
+===== SLIDE 28 =====
+MEDIA: image5.png, image29.jpeg, image28.png
+Current Progress
+28
+Raspberry Pi + TurtleBot3
+
+===== SLIDE 29 =====
+MEDIA: image34.png, image5.png, image33.png, image32.png, image31.png, image30.jpeg, image35.png
+Current Progress
+29
+Raspberry Pi + TurtleBot3
+RJ45 network connector
+
+===== SLIDE 30 =====
+MEDIA: -
+Report on Last Week’s Work
+Niu Mu
+A0294372X
+
+===== SLIDE 31 =====
+MEDIA: image5.png
+Content
+Current Progress
+Challenges & Solutions
+Plans for Next Week
+31
+
+===== SLIDE 32 =====
+MEDIA: image5.png, image37.png, image36.png
+Current Progress
+32
+Radar power cable
+Dangerous
+
+===== SLIDE 33 =====
+MEDIA: image5.png, image40.png, image39.png, image38.png
+Current Progress
+33
+Connector
+Lidar
+Battery
+
+===== SLIDE 34 =====
+MEDIA: image5.png, image42.png, image41.png
+Current Progress
+34
+Mid360
+
+===== SLIDE 35 =====
+MEDIA: media10.mp4, media10.mp4, image43.png, image5.png
+Current Progress
+35
+SSH remote control
+Real-time SLAM mapping
+
+===== SLIDE 36 =====
+MEDIA: image5.png
+Plans for Next Week
+36
+Plan to complete SLAM mapping for the entire lab next week.
+
+===== SLIDE 37 =====
+MEDIA: -
+Report on Last Week’s Work
+Niu Mu
+A0294372X
+
+===== SLIDE 38 =====
+MEDIA: media14.mp4, image45.png, media12.mp4, media14.mp4, image44.png, media11.mp4, media11.mp4, media13.mp4, image5.png, media13.mp4, image47.png, media12.mp4, image46.png
+Current Progress
+38
+Fastlio
+P
+oint
+lio
+Fast
+er
+lio
+lio
+sam
+
+===== SLIDE 39 =====
+MEDIA: image5.png, image48.png
+Current Progress
+39
+
+===== SLIDE 40 =====
+MEDIA: media18.mp4, image5.png, image53.png, media16.mp4, media18.mp4, image52.png, media15.mp4, image51.png, media15.mp4, media17.mp4, media17.mp4, image50.png, media19.mp4, media16.mp4, media19.mp4, image49.png
+Current Progress
+40
+Fastlio
+P
+oint
+lio
+Fast
+er
+lio
+lio
+sam
+

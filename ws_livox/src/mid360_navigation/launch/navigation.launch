@@ -1,0 +1,34 @@
+<launch>
+  <arg name="use_sim_time" default="false"/>
+  <arg name="show_rviz" default="false"/>
+  <arg name="map_yaml" default="$(find mid360_navigation)/maps/map.yaml"/>
+  <arg name="odom_topic" default="/slam/odom"/>
+  <arg name="cloud_topic" default="/slam/cloud_registered"/>
+  <arg name="scan_topic" default="/scan"/>
+  <arg name="scan_frame" default="base_link"/>
+  <arg name="scan_tf_tolerance" default="1.0"/>
+  <arg name="scan_time" default="0.2"/>
+  <arg name="scan_concurrency_level" default="1"/>
+  <arg name="cmd_vel_topic" default="/cmd_vel"/>
+
+  <param name="/use_sim_time" value="$(arg use_sim_time)"/>
+
+  <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_yaml)"/>
+
+  <include file="$(find mid360_navigation)/launch/pointcloud_to_laserscan.launch">
+    <arg name="cloud_topic" value="$(arg cloud_topic)"/>
+    <arg name="scan_topic" value="$(arg scan_topic)"/>
+    <arg name="target_frame" value="$(arg scan_frame)"/>
+    <arg name="transform_tolerance" value="$(arg scan_tf_tolerance)"/>
+    <arg name="scan_time" value="$(arg scan_time)"/>
+    <arg name="concurrency_level" value="$(arg scan_concurrency_level)"/>
+  </include>
+
+  <include file="$(find mid360_navigation)/launch/move_base.launch">
+    <arg name="cmd_vel_topic" value="$(arg cmd_vel_topic)"/>
+    <arg name="odom_topic" value="$(arg odom_topic)"/>
+    <arg name="scan_frame" value="$(arg scan_frame)"/>
+  </include>
+
+  <node if="$(arg show_rviz)" pkg="rviz" type="rviz" name="rviz_nav" args="-d $(find mid360_navigation)/rviz/nav.rviz"/>
+</launch>

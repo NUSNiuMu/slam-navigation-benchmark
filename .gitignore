@@ -1,0 +1,33 @@
+# ROS build outputs
+build/
+devel/
+log/
+logs/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Large datasets and media
+*.bag
+*.pcd
+*.mkv
+*.mp4
+*.avi
+*.zip
+*.onnx
+*.pt
+
+# LaTeX build artifacts
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.lot
+*.out
+*.toc
+
+# Misc
+.DS_Store

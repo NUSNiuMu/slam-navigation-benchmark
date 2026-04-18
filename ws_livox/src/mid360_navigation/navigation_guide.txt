@@ -1,0 +1,92 @@
+# =========================================================
+# LIO-SAM-MID360 实时导航运行与调试指南
+# 生成日期: 2026-03-10
+# =========================================================
+
+### 1. 运行环境配置 (多机通信必做)
+在本地电脑(Ubuntu 20.04)与小车(Ubuntu 18.04)通信前，必须执行：
+
+[小车端 IP]: 172.20.10.2
+[电脑端 IP]: 172.20.10.3
+
+电脑端执行:
+export ROS_MASTER_URI=http://172.20.10.2:11311
+export ROS_IP=172.20.10.3
+
+小车端执行:
+unset ROS_HOSTNAME
+export ROS_IP=172.20.10.2
+export ROS_MASTER_URI=http://172.20.10.2:11311
+
+---------------------------------------------------------
+
+### 2. 标准启动顺序 (1-2-3-4-5 连招)
+
+请按顺序在小车/电脑打开 5 个终端运行：
+
+[终端 1 - 小车]: roslaunch livox_ros_driver2 msg_MID360.launch
+(雷达驱动，务必检查 JSON 配置中 timestamp_type=1)
+
+[终端 2 - 小车]: roslaunch base_control base_control.launch
+(底盘驱动，负责接收 /cmd_vel 控制电机)
+
+[终端 3 - 小车]: roslaunch lio_sam run6axis.launch
+(定位算法，当 TF 树出现 map -> odom -> base_link 时启动成功)
+
+[终端 4 - 小车]: roslaunch mid360_navigation navigation.launch
+(导航大脑，包含地图服务器、避障转换与局部规划器)
+
+[终端 5 - 电脑]: rviz -d ~/ws_livox/src/mid360_navigation/rviz/nav.rviz
+(可视化窗口，记得先执行第 1 步的 export 命令)
+
+---------------------------------------------------------
+
+### 3. 常用调试指令 (问题排查)
+
+# 检查传感器频率
+rostopic hz /livox/lidar
+rostopic hz /livox/imu
+rostopic hz /scan
+
+# 检查时间戳对齐 (极其重要)
+# 两个数字差值应小于 0.05 秒
+rostopic echo /livox/lidar/header/stamp -n 1
+python -c "import time; print(time.time())"
+
+# 检查坐标系连接状况
+rosrun tf tf_monitor
+rosrun tf tf_echo map base_link
+
+# 检查控制命令输出状况
+rostopic echo /cmd_vel
+
+# 检查导航目标点是否传到小车
+rostopic echo /move_base_simple/goal
+
+---------------------------------------------------------
+
+### 4. 关键文件路径
+
+# 导航配置文件 (代价地图, 规划器)
+~/ws_livox/src/mid360_navigation/config/
+
+# LIO-SAM 配置文件 (坐标系定义, 话题定义)
+~/ws_livox/src/LIO-SAM-MID360/config/paramsLivoxIMU.yaml
+
+# 雷达驱动配置文件 (时间戳类型, IP设置)
+$(rospack find livox_ros_driver2)/config/MID360_config.json
+
+# 静态地图
+~/ws_livox/src/mid360_navigation/maps/map.yaml
+
+---------------------------------------------------------
+
+### 5. 常见故障处理
+1. No transform from map to base_link:
+   - 检查 LIO-SAM 终端日志，确认时间戳是否对齐。
+   - 确认 unset ROS_HOSTNAME 已执行。
+2. 找不到路径 (Global planning failed):
+   - 观察 RViz 中是否有紫色/红色阴影覆盖小车（自碰撞）。
+   - 确认机器人实际位置是否在静态地图范围内，并与 SLAM 原点对齐。
+3. RViz 没有任何显示:
+   - 检查本地电脑 export ROS_MASTER_URI 是否指向 172.20.10.2。

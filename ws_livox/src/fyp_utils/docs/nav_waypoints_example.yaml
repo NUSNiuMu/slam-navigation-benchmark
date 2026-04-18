@@ -1,0 +1,14 @@
+frame_id: map
+goals:
+  - name: corridor_start
+    x: -0.5
+    y: 0.0
+    yaw: 0.0
+  - name: corridor_mid
+    x: 3.0
+    y: 0.2
+    yaw: 0.0
+  - name: corridor_end
+    x: 6.0
+    y: 0.2
+    yaw: 3.14

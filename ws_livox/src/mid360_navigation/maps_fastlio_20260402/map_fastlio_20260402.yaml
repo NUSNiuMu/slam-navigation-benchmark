@@ -1,0 +1,6 @@
+image: map_fastlio_20260402.pgm
+resolution: 0.05
+origin: [-1.3757102489471436, -2.0974881649017334, 0.0]
+negate: 0
+occupied_thresh: 0.65
+free_thresh: 0.196
