@@ -116,24 +116,14 @@ The repository includes short preview clips extracted from the archived `lab_man
 For `LIO-SAM`, `FAST-LIO`, and `FASTER-LIO`, the preview covers `01:05-01:20` of the archived run.  
 For `Point-LIO`, the preview uses the first `15 s` because the run terminates much earlier.
 
-Click any preview to open the corresponding short MP4 clip.
-
 <p align="center">
-  <a href="./docs/assets/readme/videos/liosam_demo.mp4">
-    <img src="./docs/assets/readme/videos/liosam_demo.gif" alt="LIO-SAM laboratory dynamic navigation clip" width="48%" />
-  </a>
-  <a href="./docs/assets/readme/videos/fastlio_demo.mp4">
-    <img src="./docs/assets/readme/videos/fastlio_demo.gif" alt="FAST-LIO laboratory dynamic navigation clip" width="48%" />
-  </a>
+  <img src="./docs/assets/readme/videos/liosam_demo.gif" alt="LIO-SAM laboratory dynamic navigation clip" width="48%" />
+  <img src="./docs/assets/readme/videos/fastlio_demo.gif" alt="FAST-LIO laboratory dynamic navigation clip" width="48%" />
 </p>
 
 <p align="center">
-  <a href="./docs/assets/readme/videos/fasterlio_demo.mp4">
-    <img src="./docs/assets/readme/videos/fasterlio_demo.gif" alt="FASTER-LIO laboratory dynamic navigation clip" width="48%" />
-  </a>
-  <a href="./docs/assets/readme/videos/pointlio_demo.mp4">
-    <img src="./docs/assets/readme/videos/pointlio_demo.gif" alt="Point-LIO laboratory dynamic navigation clip" width="48%" />
-  </a>
+  <img src="./docs/assets/readme/videos/fasterlio_demo.gif" alt="FASTER-LIO laboratory dynamic navigation clip" width="48%" />
+  <img src="./docs/assets/readme/videos/pointlio_demo.gif" alt="Point-LIO laboratory dynamic navigation clip" width="48%" />
 </p>
 
 These previews are intended as qualitative demonstrations only. Quantitative analysis remains in the report and evaluation outputs.
@@ -232,12 +222,12 @@ The original archived `lab_manual2` videos remain outside the repository because
 - `manual2_fasterlio/fasterlio.mkv` is about `242 MB`
 - `manual2_pointlio/pointlio.mkv` is about `23 MB`
 
-Instead, this repository includes short compressed preview clips and GIF previews for README presentation:
+Instead, this repository includes short GIF previews for README presentation:
 
-- `docs/assets/readme/videos/liosam_demo.mp4`
-- `docs/assets/readme/videos/fastlio_demo.mp4`
-- `docs/assets/readme/videos/fasterlio_demo.mp4`
-- `docs/assets/readme/videos/pointlio_demo.mp4`
+- `docs/assets/readme/videos/liosam_demo.gif`
+- `docs/assets/readme/videos/fastlio_demo.gif`
+- `docs/assets/readme/videos/fasterlio_demo.gif`
+- `docs/assets/readme/videos/pointlio_demo.gif`
 
 ## Acknowledgement
 
