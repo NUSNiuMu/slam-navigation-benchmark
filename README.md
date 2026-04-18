@@ -30,6 +30,7 @@ See [REPOSITORY_STRUCTURE.md](./REPOSITORY_STRUCTURE.md) for a fuller breakdown.
 
 ```text
 .
+├── docs/
 ├── ws_livox/
 │   └── src/
 │       ├── LIO-SAM-MID360/
@@ -43,6 +44,12 @@ See [REPOSITORY_STRUCTURE.md](./REPOSITORY_STRUCTURE.md) for a fuller breakdown.
     └── src/
         └── faster-lio/
 ```
+
+Top-level reading entry points:
+
+- [docs/README.md](./docs/README.md)
+- [docs/notion_done/README.md](./docs/notion_done/README.md)
+- [docs/reports/README.md](./docs/reports/README.md)
 
 ## Main Components
 
@@ -149,6 +156,12 @@ In the online setting, all methods are tested with the same:
 This repository includes the project report and several experiment-oriented notes. Important documents are under:
 
 - `ws_livox/src/fyp_utils/docs/`
+
+For a cleaner GitHub-facing entry point, start from:
+
+- `docs/README.md`
+- `docs/notion_done/`
+- `docs/reports/`
 
 Notable files include:
 

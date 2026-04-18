@@ -15,8 +15,15 @@ __pycache__/
 *.mp4
 *.avi
 *.zip
+*.tgz
+*.tar.gz
 *.onnx
 *.pt
+
+# Experiment outputs
+nav_eval_results/
+static_eval_results/
+PointCloudBag/
 
 # LaTeX build artifacts
 *.aux

@@ -8,10 +8,46 @@ This document summarises the layout of the `slam-navigation-benchmark` repositor
 github_project_upload/
 ├── README.md
 ├── REPOSITORY_STRUCTURE.md
+├── docs/
 ├── ws_livox/
 ├── fastlio2_ws/
 └── fasterlio_ws/
 ```
+
+## `docs/`
+
+Top-level curated documentation layer added for repository readability.
+
+```text
+docs/
+├── README.md
+├── notion_done/
+└── reports/
+```
+
+Purpose:
+
+- provide a clear reading entry for GitHub visitors
+- mirror `Done` project notes from Notion in Markdown form
+- surface report entry points without changing the original workspace layout
+
+### `docs/notion_done/`
+
+Curated copies of project notes whose status was `Done` in the Notion FYP database.
+
+This includes:
+
+- real-robot bring-up notes
+- rosbag recording standards
+- offline evaluation workflow notes
+- navigation usage notes
+- waypoint-based navigation evaluation notes
+- control optimisation notes
+- one earlier historical reference guide
+
+### `docs/reports/`
+
+Top-level index pointing to the final report source and compiled PDF stored under `ws_livox/src/fyp_utils/docs/`.
 
 ## `ws_livox/`
 
