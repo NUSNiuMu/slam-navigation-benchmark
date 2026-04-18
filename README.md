@@ -199,7 +199,7 @@ For repository visitors, the easiest entry points are:
 
 The current compiled project report is included here:
 
-- [docs/reports/nus_fyp_report_english_20260405.pdf](./docs/reports/nus_fyp_report_english_20260405.pdf)
+- [docs/reports/ME5400_NiuMu_A0294372X.pdf](./docs/reports/ME5400_NiuMu_A0294372X.pdf)
 
 The README overview is aligned with the report content, but the report remains the authoritative project document.
 

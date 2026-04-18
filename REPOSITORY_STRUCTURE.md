@@ -122,12 +122,6 @@ mid360_navigation/
 ├── config/
 ├── launch/
 ├── maps/
-├── maps_324/
-├── maps_415_20260415/
-├── maps_415_20260415_cleaned/
-├── maps_corridor2_20260407/
-├── maps_corridor2_20260407_cleaned/
-├── maps_fastlio_20260402/
 ├── rviz/
 └── scripts/
 ```
@@ -136,7 +130,7 @@ Purpose:
 
 - provide a single downstream navigation configuration
 - host costmap and DWA planner settings
-- store generated occupancy maps used in experiments
+- keep the curated default occupancy map used by the repository
 - convert point clouds into 2D scan observations
 
 Representative files:
