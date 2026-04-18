@@ -1,32 +1,135 @@
-# SLAM Navigation Benchmark for Livox MID360 Mobile Robot
+# SLAM Navigation Benchmark for a Livox MID360 Mobile Robot
 
-This repository contains the curated code and documentation bundle for an undergraduate Final Year Project at the National University of Singapore. The project benchmarks four LiDAR-inertial SLAM backends on a real mobile robot using a shared ROS navigation stack, with the goal of comparing both offline trajectory quality and online navigation behaviour under consistent downstream settings.
+This repository contains the curated code, evaluation scripts, and documentation for a National University of Singapore Final Year Project on **system-level benchmarking of LiDAR-inertial SLAM for real mobile robot navigation**.
 
-The benchmark focuses on the following SLAM backends:
+The project integrates four SLAM backends into one shared ROS navigation stack:
 
 - `LIO-SAM`
 - `FAST-LIO`
 - `Point-LIO`
 - `FASTER-LIO`
 
-All four methods are integrated with the same navigation pipeline through unified interfaces for odometry and registered point clouds. This allows the comparison to focus on the odometry and obstacle observations produced by each SLAM method rather than planner retuning.
+The central idea is simple: keep the **robot, map, planner, costmap, and waypoint protocol fixed**, and study how different SLAM outputs change downstream navigation behaviour.
 
-## Project Scope
+<p align="center">
+  <img src="./docs/assets/readme/hardware_platform.jpeg" alt="Mobile robot platform with Livox MID360" width="68%" />
+</p>
+
+## Project Focus
+
+This project is not only about whether a SLAM algorithm can localize well in isolation. It asks a more practical robotics question:
+
+> What happens when different LiDAR-inertial SLAM backends are connected to the same real navigation stack on the same robot?
+
+To answer that, the project builds a unified benchmarking framework around:
+
+- a differential-drive robot platform with a `Livox MID360`
+- a shared ROS navigation stack based on `move_base`
+- `DWAPlannerROS` for local planning
+- `pointcloud_to_laserscan` for obstacle observation generation
+- standardised offline and online evaluation pipelines
+
+## What This Repository Contains
 
 The repository combines three layers of work:
 
-- SLAM backends adapted for Livox MID360 and real-robot testing
-- A shared navigation stack based on `move_base`, `DWAPlannerROS`, and point-cloud-to-laserscan conversion
-- Evaluation scripts, experiment workflows, and report materials used to benchmark the four methods
+- **SLAM integration**
+  - four LiDAR-inertial backends configured for the same robot platform
+- **shared navigation**
+  - one common odometry/cloud interface and one common navigation stack
+- **evaluation and documentation**
+  - scripts for rosbag evaluation, waypoint evaluation, report generation, and experiment notes
 
-The project includes both:
+## Shared Navigation Interface
 
-- offline rosbag-based SLAM evaluation using ATE/RPE and runtime statistics
-- online waypoint-based navigation evaluation using success rate, traversal time, path length, safety margin, recovery count, and related metrics
+All four SLAM methods are connected to the same navigation pipeline through unified downstream topics:
+
+- `/slam/odom`
+- `/slam/cloud_registered`
+
+This keeps the planner side fixed and makes the comparison more meaningful. Differences in navigation are then driven mainly by:
+
+- odometry stability
+- point-cloud representation
+- frame conventions
+- scan generation quality
+- responsiveness of local obstacle updates
+
+<p align="center">
+  <img src="./docs/assets/readme/navigation_stack.png" alt="Shared navigation map and waypoint interface" width="72%" />
+</p>
+
+## Benchmark Design
+
+The benchmark contains two complementary parts.
+
+### 1. Offline Static Rosbag Evaluation
+
+Each SLAM backend is run on the same recorded rosbag to measure:
+
+- trajectory consistency
+- ATE / RPE
+- CPU and memory usage
+- per-frame processing characteristics
+
+This isolates algorithm-side behaviour without planner interaction.
+
+### 2. Online Navigation Evaluation
+
+Each SLAM backend is then tested in the same live navigation framework with:
+
+- the same map
+- the same robot
+- the same planner parameters
+- the same waypoint routes
+- the same obstacle interaction protocol
+
+This reveals system-level differences such as:
+
+- whether local costmaps update reliably
+- whether dynamic obstacles are handled safely
+- whether the robot reaches goals consistently
+- whether behaviour is conservative, balanced, or overly aggressive
+
+<p align="center">
+  <img src="./docs/assets/readme/obstacle_avoidance.png" alt="Obstacle-aware navigation on the shared map" width="72%" />
+</p>
+
+## Representative Engineering Problems Addressed
+
+The project also serves as an engineering study of integration problems that often decide whether a SLAM method is usable in navigation at all. Key issues addressed in this work include:
+
+- TF-tree inconsistencies across heterogeneous SLAM packages
+- incompatible odometry and registered-cloud topic conventions
+- failure of local costmap updates even when SLAM itself appears correct
+- instability caused by sparse or misframed cloud outputs
+- rosbag recording that cannot support ATE/RPE because of missing reference odometry
+- process cleanup problems that break repeated evaluation runs
+- map export and 3D-to-2D occupancy map generation for navigation reuse
+
+## Qualitative Demonstration Snapshots
+
+The repository does not include the full archived navigation videos because they are too large for a clean GitHub code repository. Instead, selected representative frames are included here for qualitative inspection.
+
+### Human-Interference Laboratory Demonstration
+
+These frames are taken from the archived `lab_manual2` videos and show the four algorithms under a fixed human-interference protocol.
+
+<p align="center">
+  <img src="./docs/assets/readme/demo_liosam.jpg" alt="LIO-SAM laboratory dynamic navigation frame" width="48%" />
+  <img src="./docs/assets/readme/demo_fastlio.jpg" alt="FAST-LIO laboratory dynamic navigation frame" width="48%" />
+</p>
+
+<p align="center">
+  <img src="./docs/assets/readme/demo_fasterlio.jpg" alt="FASTER-LIO laboratory dynamic navigation frame" width="48%" />
+  <img src="./docs/assets/readme/demo_pointlio.jpg" alt="Point-LIO laboratory dynamic navigation frame" width="48%" />
+</p>
+
+These are intended as visual demonstrations only. The full raw videos remain archived outside the repository because of file size constraints.
 
 ## Repository Layout
 
-See [REPOSITORY_STRUCTURE.md](./REPOSITORY_STRUCTURE.md) for a fuller breakdown. The main top-level folders are:
+See [REPOSITORY_STRUCTURE.md](./REPOSITORY_STRUCTURE.md) for a fuller explanation. The main code structure is:
 
 ```text
 .
@@ -45,141 +148,80 @@ See [REPOSITORY_STRUCTURE.md](./REPOSITORY_STRUCTURE.md) for a fuller breakdown.
         └── faster-lio/
 ```
 
-Top-level reading entry points:
+## Main Components
+
+### `ws_livox/src/LIO-SAM-MID360`
+
+Livox MID360-adapted `LIO-SAM` package used as one of the benchmarked SLAM backends.
+
+### `fastlio2_ws/src/FAST_LIO`
+
+`FAST-LIO` backend configured for the same robot and navigation interface.
+
+### `fastlio2_ws/src/Point-LIO`
+
+`Point-LIO` backend included in the comparison, with project-specific integration adjustments for fairer navigation benchmarking.
+
+### `fasterlio_ws/src/faster-lio`
+
+`FASTER-LIO` backend used as the fourth SLAM method.
+
+### `ws_livox/src/mid360_navigation`
+
+Shared navigation stack used by all four methods, including:
+
+- `move_base`
+- costmap configuration
+- DWA planner parameters
+- `pointcloud_to_laserscan`
+- map-generation utilities
+
+### `ws_livox/src/fyp_utils`
+
+Project-specific evaluation and workflow tooling, including:
+
+- rosbag recording helpers
+- static SLAM evaluation scripts
+- waypoint-based navigation evaluation scripts
+- startup wrappers and monitoring tools
+
+## Documentation Entry Points
+
+For repository visitors, the easiest entry points are:
 
 - [docs/README.md](./docs/README.md)
 - [docs/notion_done/README.md](./docs/notion_done/README.md)
 - [docs/reports/README.md](./docs/reports/README.md)
-- [docs/waypoints/](./docs/waypoints)
+- [docs/waypoints/README.md](./docs/waypoints/README.md)
 
-## Main Components
+## Final Report
 
-### 1. `ws_livox/src/LIO-SAM-MID360`
-Livox MID360-adapted `LIO-SAM` package used as one of the benchmarked SLAM backends.
+The current compiled project report is included here:
 
-Relevant files include:
+- [docs/reports/nus_fyp_report_english_20260405.pdf](./docs/reports/nus_fyp_report_english_20260405.pdf)
 
-- `config/paramsLivoxIMU.yaml`
-- `launch/run.launch`
-- `src/mapOptmization.cpp`
-
-### 2. `fastlio2_ws/src/FAST_LIO`
-`FAST-LIO` backend configured for the same MID360 platform and navigation interface.
-
-Relevant files include:
-
-- `config/mid360.yaml`
-- `launch/mapping_mid360.launch`
-- `src/laserMapping.cpp`
-
-### 3. `fastlio2_ws/src/Point-LIO`
-`Point-LIO` backend used in the comparison, including local parameter adjustments for fairer downstream navigation benchmarking.
-
-Relevant files include:
-
-- `config/mid360.yaml`
-- `launch/mapping_mid360.launch`
-- `src/laserMapping.cpp`
-- `src/Estimator.cpp`
-
-### 4. `fasterlio_ws/src/faster-lio`
-`FASTER-LIO` backend used as the fourth SLAM method in the benchmark.
-
-Relevant files include:
-
-- `config/mid360.yaml`
-- `launch/mapping_mid360.launch`
-- `src/laser_mapping.cc`
-
-### 5. `ws_livox/src/mid360_navigation`
-Shared navigation stack used by all four SLAM methods.
-
-It contains:
-
-- launch files for navigation, `move_base`, and point-cloud-to-laserscan conversion
-- global/local costmap configuration
-- DWA local planner parameters
-- generated occupancy maps for several test scenarios
-- helper scripts for map generation and map cleaning
-
-Key files:
-
-- `launch/navigation.launch`
-- `launch/move_base.launch`
-- `launch/pointcloud_to_laserscan.launch`
-- `config/dwa_local_planner_params.yaml`
-- `config/costmap_common_params.yaml`
-- `scripts/pcd_to_grid.py`
-- `scripts/clean_map_pgm.py`
-
-### 6. `ws_livox/src/fyp_utils`
-Project-specific tooling for experiment execution, recording, evaluation, and documentation.
-
-It contains:
-
-- rosbag recording launch files
-- static rosbag evaluation scripts
-- waypoint-based navigation evaluation scripts
-- deployment and monitoring helpers
-- project-specific automation code used by the benchmark
-
-Key files:
-
-- `scripts/eval_static_rosbag.sh`
-- `scripts/nav_waypoint_eval.py`
-- `scripts/eval_nav_4alg.sh`
-- `scripts/capture_waypoints.py`
-- `scripts/bag_to_tum.py`
-- `scripts/slam_eval_monitor.py`
-
-## Benchmark Workflow
-
-The overall workflow used in this project is:
-
-1. Launch one SLAM backend on the real robot or on recorded rosbag data
-2. Relay its odometry and registered cloud to a shared navigation interface
-3. Run the same ROS navigation stack for all methods
-4. Record navigation and system metrics through a common evaluator
-5. Compare success rate, path efficiency, safety margin, and compute cost
-
-In the online setting, all methods are tested with the same:
-
-- map
-- waypoint file
-- local planner
-- costmap configuration
-- safety thresholds
-
-## Included Documentation
-
-This repository includes the project report, synchronized Notion notes, and evaluation-facing documentation. Start from:
-
-- `docs/README.md`
-- `docs/notion_done/`
-- `docs/reports/`
-- `docs/waypoints/`
+The README overview is aligned with the report content, but the report remains the authoritative project document.
 
 ## What Is Intentionally Excluded
 
-Large generated assets are intentionally not included in this GitHub upload. Examples include:
+To keep the repository code-focused and lightweight, the following are not included:
 
-- rosbags
-- raw videos
+- large rosbags
+- raw experiment videos
 - large point-cloud map outputs such as `.pcd`
-- experiment result archives stored outside this repository
-- build products such as `build/`, `devel/`, and log folders
+- generated navigation result archives
+- build outputs such as `build/`, `devel/`, and log folders
 
-This keeps the repository focused on code, configuration, evaluation scripts, and report materials.
+## About the Videos
 
-## Notes on Reproducibility
+The archived `lab_manual2` folder does contain four algorithm demonstration videos. In principle, GitHub README pages can show videos, but for this repository that is not a good fit:
 
-This repository is a curated project bundle rather than a fully containerised release. Some upstream packages retain their original structure, and some experiment results in the report were generated from datasets, maps, and videos that are stored separately from the repository because of size constraints.
+- `manual2_liosam/liosam.mkv` is about `862 MB`
+- `manual2_fastlio/fastlio.mkv` is about `220 MB`
+- `manual2_fasterlio/fasterlio.mkv` is about `242 MB`
+- `manual2_pointlio/pointlio.mkv` is about `23 MB`
 
-For that reason, the repository should be understood as:
-
-- a reproducible code-and-configuration archive for the project
-- a reference implementation of the benchmark pipeline
-- a source repository for the written report and experiment tooling
+Because of that, this repository uses **video frames rather than full video files** in the README. This gives a much cleaner project homepage without turning the repository into a media archive.
 
 ## Acknowledgement
 
