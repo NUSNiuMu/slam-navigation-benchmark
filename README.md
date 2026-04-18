@@ -107,25 +107,36 @@ The project also serves as an engineering study of integration problems that oft
 - process cleanup problems that break repeated evaluation runs
 - map export and 3D-to-2D occupancy map generation for navigation reuse
 
-## Qualitative Demonstration Snapshots
+## Qualitative Demonstration Clips
 
-The repository does not include the full archived navigation videos because they are too large for a clean GitHub code repository. Instead, selected representative frames are included here for qualitative inspection.
+The repository includes short preview clips extracted from the archived `lab_manual2` videos to give a qualitative sense of how the robot behaved under human interference. To keep the repository lightweight, only short trimmed previews are included here.
 
 ### Human-Interference Laboratory Demonstration
 
-These frames are taken from the archived `lab_manual2` videos and show the four algorithms under a fixed human-interference protocol.
+For `LIO-SAM`, `FAST-LIO`, and `FASTER-LIO`, the preview covers `01:05-01:20` of the archived run.  
+For `Point-LIO`, the preview uses the first `15 s` because the run terminates much earlier.
+
+Click any preview to open the corresponding short MP4 clip.
 
 <p align="center">
-  <img src="./docs/assets/readme/demo_liosam.jpg" alt="LIO-SAM laboratory dynamic navigation frame" width="48%" />
-  <img src="./docs/assets/readme/demo_fastlio.jpg" alt="FAST-LIO laboratory dynamic navigation frame" width="48%" />
+  <a href="./docs/assets/readme/videos/liosam_demo.mp4">
+    <img src="./docs/assets/readme/videos/liosam_demo.gif" alt="LIO-SAM laboratory dynamic navigation clip" width="48%" />
+  </a>
+  <a href="./docs/assets/readme/videos/fastlio_demo.mp4">
+    <img src="./docs/assets/readme/videos/fastlio_demo.gif" alt="FAST-LIO laboratory dynamic navigation clip" width="48%" />
+  </a>
 </p>
 
 <p align="center">
-  <img src="./docs/assets/readme/demo_fasterlio.jpg" alt="FASTER-LIO laboratory dynamic navigation frame" width="48%" />
-  <img src="./docs/assets/readme/demo_pointlio.jpg" alt="Point-LIO laboratory dynamic navigation frame" width="48%" />
+  <a href="./docs/assets/readme/videos/fasterlio_demo.mp4">
+    <img src="./docs/assets/readme/videos/fasterlio_demo.gif" alt="FASTER-LIO laboratory dynamic navigation clip" width="48%" />
+  </a>
+  <a href="./docs/assets/readme/videos/pointlio_demo.mp4">
+    <img src="./docs/assets/readme/videos/pointlio_demo.gif" alt="Point-LIO laboratory dynamic navigation clip" width="48%" />
+  </a>
 </p>
 
-These are intended as visual demonstrations only. The full raw videos remain archived outside the repository because of file size constraints.
+These previews are intended as qualitative demonstrations only. Quantitative analysis remains in the report and evaluation outputs.
 
 ## Repository Layout
 
@@ -214,14 +225,19 @@ To keep the repository code-focused and lightweight, the following are not inclu
 
 ## About the Videos
 
-The archived `lab_manual2` folder does contain four algorithm demonstration videos. In principle, GitHub README pages can show videos, but for this repository that is not a good fit:
+The original archived `lab_manual2` videos remain outside the repository because they are too large for a clean code-focused GitHub project:
 
 - `manual2_liosam/liosam.mkv` is about `862 MB`
 - `manual2_fastlio/fastlio.mkv` is about `220 MB`
 - `manual2_fasterlio/fasterlio.mkv` is about `242 MB`
 - `manual2_pointlio/pointlio.mkv` is about `23 MB`
 
-Because of that, this repository uses **video frames rather than full video files** in the README. This gives a much cleaner project homepage without turning the repository into a media archive.
+Instead, this repository includes short compressed preview clips and GIF previews for README presentation:
+
+- `docs/assets/readme/videos/liosam_demo.mp4`
+- `docs/assets/readme/videos/fastlio_demo.mp4`
+- `docs/assets/readme/videos/fasterlio_demo.mp4`
+- `docs/assets/readme/videos/pointlio_demo.mp4`
 
 ## Acknowledgement
 
