@@ -9,13 +9,14 @@ It is meant to make the project easier to navigate without changing the original
 - `notion_done/`
   - Synced and cleaned copies of project notes whose status is `Done` in the Notion FYP database.
 - `reports/`
-  - Entry points to the final report source and generated PDF.
+  - Final report entry and generated PDF.
+- `waypoints/`
+  - Example waypoint YAML files preserved for evaluation reference.
 
 ## Relationship to the Original Workspace Files
 
 The original project files remain in their workspace locations, especially under:
 
-- `ws_livox/src/fyp_utils/docs/`
 - `ws_livox/src/mid360_navigation/`
 - `fastlio2_ws/src/FAST_LIO/`
 - `fastlio2_ws/src/Point-LIO/`

@@ -24,6 +24,7 @@ __pycache__/
 nav_eval_results/
 static_eval_results/
 PointCloudBag/
+ws_livox/src/fyp_utils/docs/
 
 # LaTeX build artifacts
 *.aux

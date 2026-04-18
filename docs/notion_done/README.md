@@ -15,5 +15,4 @@ This folder contains curated Markdown copies of project notes whose status was `
 ## Notes
 
 - These files are curated for repository readability.
-- The original internal working copies may still exist under `ws_livox/src/fyp_utils/docs/` with earlier naming or language-specific formatting.
 - Historical pages with status other than `Done` were intentionally not mirrored here.

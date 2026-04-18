@@ -22,7 +22,8 @@ Top-level curated documentation layer added for repository readability.
 docs/
 ├── README.md
 ├── notion_done/
-└── reports/
+├── reports/
+└── waypoints/
 ```
 
 Purpose:
@@ -47,7 +48,11 @@ This includes:
 
 ### `docs/reports/`
 
-Top-level index pointing to the final report source and compiled PDF stored under `ws_livox/src/fyp_utils/docs/`.
+Top-level report entry containing the final project PDF and its index.
+
+### `docs/waypoints/`
+
+Top-level copies of representative waypoint YAML files kept for documentation and evaluation examples.
 
 ## `ws_livox/`
 
@@ -85,17 +90,6 @@ fyp_utils/
 ├── launch/
 └── scripts/
 ```
-
-#### `docs/`
-
-Contains report sources, benchmark notes, work logs, and selected project assets.
-
-Notable items:
-
-- final report source and PDF
-- waypoint examples
-- evaluation notes adapted from project documentation
-- report figures and screenshots
 
 #### `launch/`
 

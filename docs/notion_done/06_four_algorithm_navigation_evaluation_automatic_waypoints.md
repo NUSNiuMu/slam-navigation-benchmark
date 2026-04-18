@@ -27,7 +27,7 @@ The evaluator reads target points from a waypoint YAML file rather than relying 
 
 Example:
 
-- `ws_livox/src/fyp_utils/docs/nav_waypoints_example.yaml`
+- `docs/waypoints/nav_waypoints_example.yaml`
 
 ## Recording Waypoints
 
@@ -35,14 +35,14 @@ Example:
 source /opt/ros/noetic/setup.bash
 source /home/niumu/ws_livox/devel/setup.bash
 python3 /home/niumu/ws_livox/src/fyp_utils/scripts/capture_waypoints.py \
-  --out /home/niumu/ws_livox/src/fyp_utils/docs/nav_waypoints_0324.yaml
+  --out /home/niumu/ws_livox/github_project_upload/docs/waypoints/nav_waypoints_0324.yaml
 ```
 
 ## Running the Evaluation
 
 ```bash
 bash /home/niumu/ws_livox/src/fyp_utils/scripts/eval_nav_4alg.sh \
-  --waypoints /home/niumu/ws_livox/src/fyp_utils/docs/nav_waypoints_0324.yaml
+  --waypoints /home/niumu/ws_livox/github_project_upload/docs/waypoints/nav_waypoints_0324.yaml
 ```
 
 Common options:

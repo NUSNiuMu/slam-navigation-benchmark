@@ -50,6 +50,7 @@ Top-level reading entry points:
 - [docs/README.md](./docs/README.md)
 - [docs/notion_done/README.md](./docs/notion_done/README.md)
 - [docs/reports/README.md](./docs/reports/README.md)
+- [docs/waypoints/](./docs/waypoints)
 
 ## Main Components
 
@@ -120,7 +121,7 @@ It contains:
 - static rosbag evaluation scripts
 - waypoint-based navigation evaluation scripts
 - deployment and monitoring helpers
-- project notes, evaluation docs, and the final report source
+- project-specific automation code used by the benchmark
 
 Key files:
 
@@ -130,8 +131,6 @@ Key files:
 - `scripts/capture_waypoints.py`
 - `scripts/bag_to_tum.py`
 - `scripts/slam_eval_monitor.py`
-- `docs/nus_fyp_report_english_20260405.tex`
-- `docs/nus_fyp_report_english_20260405.pdf`
 
 ## Benchmark Workflow
 
@@ -153,23 +152,12 @@ In the online setting, all methods are tested with the same:
 
 ## Included Documentation
 
-This repository includes the project report and several experiment-oriented notes. Important documents are under:
-
-- `ws_livox/src/fyp_utils/docs/`
-
-For a cleaner GitHub-facing entry point, start from:
+This repository includes the project report, synchronized Notion notes, and evaluation-facing documentation. Start from:
 
 - `docs/README.md`
 - `docs/notion_done/`
 - `docs/reports/`
-
-Notable files include:
-
-- `nus_fyp_report_english_20260405.pdf`
-- `graduation_report_draft_20260405.md`
-- `notion_02_navigation_usage.md`
-- `notion_03_static_rosbag_eval.md`
-- `notion_05_nav_eval_4alg_waypoints.md`
+- `docs/waypoints/`
 
 ## What Is Intentionally Excluded
 

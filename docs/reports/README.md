@@ -1,13 +1,11 @@
 # Report Entry Points
 
-The final report source and compiled output are stored in the original project workspace under:
+This directory contains the final compiled project report preserved at the top level for easier GitHub browsing.
 
-- `ws_livox/src/fyp_utils/docs/nus_fyp_report_english_20260405.tex`
-- `ws_livox/src/fyp_utils/docs/nus_fyp_report_english_20260405.pdf`
-- `ws_livox/src/fyp_utils/docs/nus_fyp_report_english_20260405.bib`
+## Included File
 
-Related draft and supporting files are also under:
+- `nus_fyp_report_english_20260405.pdf`
 
-- `ws_livox/src/fyp_utils/docs/`
+## Note
 
-This directory exists as a stable top-level index so that repository visitors can quickly find the report materials.
+The original local workspace contained additional report source files and intermediate assets, but the GitHub repository intentionally keeps only the curated documentation layer rather than the full internal report working directory.
